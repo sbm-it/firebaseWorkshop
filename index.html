@@ -1,0 +1,54 @@
+<html>
+<body>
+
+    <div>
+        <h1>Latest:</h1>
+    </div>
+    <div>
+        <input id='myText' type="text">
+        <input id="myButton" type="button" value='Save'>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCLF-5X_Dx-KcHpxxyG2ighgYsaTXrASFU",
+        authDomain: "fir-hack-d6b2c.firebaseapp.com",
+        databaseURL: "https://fir-hack-d6b2c.firebaseio.com",
+        projectId: "fir-hack-d6b2c",
+        storageBucket: "fir-hack-d6b2c.appspot.com",
+        messagingSenderId: "160596578178"
+    };
+    firebase.initializeApp(config);
+
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    var btn = document.getElementById('myButton');
+    var txt = document.getElementById('myText');
+
+    btn.addEventListener("click", function(e){
+        e.preventDefault();
+
+        db.collection("firebaseHack").add({
+            junk: txt.value
+        })
+        .then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+    });
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
