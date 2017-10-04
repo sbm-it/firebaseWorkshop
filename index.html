@@ -2,11 +2,12 @@
 <body>
 
     <div>
-        <h1>Latest:</h1>
+        <h1 id="header">Latest:</h1>
     </div>
     <div>
         <input id='myText' type="text">
         <input id="myButton" type="button" value='Save'>
+        <input id="myLoadButton" type="button" value='Load'>
     </div>
     <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
@@ -26,7 +27,9 @@
     var db = firebase.firestore();
 
     var btn = document.getElementById('myButton');
+    var btnLoad = document.getElementById('myLoadButton');
     var txt = document.getElementById('myText');
+    var header = document.getElementById('header');
 
     btn.addEventListener("click", function(e){
         e.preventDefault();
@@ -40,6 +43,21 @@
         .catch(function(error) {
             console.error("Error adding document: ", error);
         });
+    });
+
+    btnLoad.addEventListener("click", function(e){
+        e.preventDefault();
+
+        db.collection("firebaseHack").limit(1).get().then(function(doc) {
+            if (doc.exists) {
+                header.value = "Latest: ", doc.data();
+            } else {
+                console.log("No such document!");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
+
     });
 
 
